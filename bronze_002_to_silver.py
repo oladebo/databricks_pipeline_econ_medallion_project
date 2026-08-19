@@ -1,5 +1,3 @@
-bronze_to_silver.py
-
 
 
 from pyspark.sql import functions as F
@@ -26,8 +24,8 @@ pipeline_run_id = str(uuid.uuid4())
 # ----------------------------------------------------------
 # 2. Read Bronze tables
 # ----------------------------------------------------------
-orders_df = spark.table("ecom_temp.bronze.orders_bronze")
-products_df = spark.table("ecom_temp.bronze.products_bronze")
+orders_df = spark.table("elab_medallion_pipeline.bronze.orders_bronze")
+products_df = spark.table("elab_medallion_pipeline.bronze.products_bronze")
 
 # ----------------------------------------------------------
 # 3. Helper function
@@ -201,7 +199,7 @@ orders_curated_df.write \
     .format("delta") \
     .mode("overwrite") \
     .option("overwriteSchema", "true") \
-    .saveAsTable("ecom_temp.silver.orders_curated")
+    .saveAsTable("elab_medallion_pipeline.silver.orders_curated")
 
 # ----------------------------------------------------------
 # 12. Write Silver Rejected Orders table
@@ -210,7 +208,7 @@ rejected_orders_df.write \
     .format("delta") \
     .mode("overwrite") \
     .option("overwriteSchema", "true") \
-    .saveAsTable("ecom_temp.silver.rejected_orders")
+    .saveAsTable("elab_medallion_pipeline.silver.rejected_orders")
 
 # ----------------------------------------------------------
 # 13. Validation
@@ -218,24 +216,25 @@ rejected_orders_df.write \
 print("Pipeline Run ID:", pipeline_run_id)
 
 print("Curated Orders Count:")
-spark.sql("SELECT COUNT(*) AS total_rows FROM ecom_temp.silver.orders_curated").show()
+spark.sql("SELECT COUNT(*) AS total_rows FROM elab_medallion_pipeline.silver.orders_curated").show()
 
 print("Rejected Orders Count:")
-spark.sql("SELECT COUNT(*) AS total_rows FROM ecom_temp.silver.rejected_orders").show()
+spark.sql("SELECT COUNT(*) AS total_rows FROM elab_medallion_pipeline.silver.rejected_orders").show()
 
 print("Rejection Summary:")
 spark.sql("""
 SELECT rejection_reason, COUNT(*) AS cnt
-FROM ecom_temp.silver.rejected_orders
+FROM elab_medallion_pipeline.silver.rejected_orders
 GROUP BY rejection_reason
 ORDER BY cnt DESC
 """).show()
 
 print("Curated Orders Preview:")
-display(spark.table("ecom_temp.silver.orders_curated"))
+display(spark.table("elab_medallion_pipeline.silver.orders_curated"))
 
 print("Rejected Orders Preview:")
-display(spark.table("ecom_temp.silver.rejected_orders"))
+display(spark.table("elab_medallion_pipeline.silver.rejected_orders"))
+
 
 
 
