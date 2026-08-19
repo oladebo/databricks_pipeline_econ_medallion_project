@@ -1,5 +1,3 @@
-source_to_bronze.py
-
 
 
 from pyspark.sql.functions import current_timestamp, lit, regexp_extract, col
@@ -17,8 +15,8 @@ import uuid
 # ----------------------------------------------------------
 # 1. Define source paths
 # ----------------------------------------------------------
-orders_path = "/Volumes/ecom_temp/data_layer/source_1/load_date=2026-04-03/"
-products_path = "/Volumes/ecom_temp/data_layer/source_2/load_date=2026-04-03/"
+orders_path = "/Volumes/elab_medallion_pipeline/data_layer/source_1/load_date=2026-08-19/"
+products_path = "/Volumes/elab_medallion_pipeline/data_layer/source_2/load_date=2026-08-19/"
 
 # ----------------------------------------------------------
 # 2. Generate pipeline run id
@@ -86,7 +84,7 @@ orders_bronze_df.write \
     .format("delta") \
     .mode("append") \
     .partitionBy("load_date") \
-    .saveAsTable("ecom_temp.bronze.orders_bronze")
+    .saveAsTable("elab_medallion_pipeline.bronze.orders_bronze")
 
 # ----------------------------------------------------------
 # 6. Write Products Bronze table
@@ -95,7 +93,7 @@ products_bronze_df.write \
     .format("delta") \
     .mode("append") \
     .partitionBy("load_date") \
-    .saveAsTable("ecom_temp.bronze.products_bronze")
+    .saveAsTable("elab_medallion_pipeline.bronze.products_bronze")
 
 # ----------------------------------------------------------
 # 7. Validation
@@ -103,16 +101,23 @@ products_bronze_df.write \
 print("Pipeline Run ID:", pipeline_run_id)
 
 print("Orders Bronze Count:")
-spark.sql("SELECT COUNT(*) AS total_rows FROM ecom_temp.bronze.orders_bronze").show()
+spark.sql("SELECT COUNT(*) AS total_rows FROM elab_medallion_pipeline.bronze.orders_bronze").show()
 
 print("Products Bronze Count:")
-spark.sql("SELECT COUNT(*) AS total_rows FROM ecom_temp.bronze.products_bronze").show()
+spark.sql("SELECT COUNT(*) AS total_rows FROM elab_medallion_pipeline.bronze.products_bronze").show()
 
 print("Orders Bronze Preview:")
-display(spark.table("ecom_temp.bronze.orders_bronze"))
+display(spark.table("elab_medallion_pipeline.bronze.orders_bronze"))
 
 print("Products Bronze Preview:")
-display(spark.table("ecom_temp.bronze.products_bronze"))
+display(spark.table("elab_medallion_pipeline.bronze.products_bronze"))
+
+
+
+
+
+
+
 
 
 
