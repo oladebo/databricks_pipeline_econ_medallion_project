@@ -1,4 +1,6 @@
-silver_to_gold.py
+
+
+
 
 from pyspark.sql import functions as F
 import uuid
@@ -21,7 +23,7 @@ pipeline_run_id = str(uuid.uuid4())
 # ----------------------------------------------------------
 # 2. Read Silver curated orders
 # ----------------------------------------------------------
-orders_curated_df = spark.table("ecom_temp.silver.orders_curated")
+orders_curated_df = spark.table("elab_medallion_pipeline.silver.orders_curated")
 
 # ----------------------------------------------------------
 # 3. Apply safety filters before Gold aggregation
@@ -82,7 +84,7 @@ daily_product_sales_df.write \
     .format("delta") \
     .mode("overwrite") \
     .option("overwriteSchema", "true") \
-    .saveAsTable("ecom_temp.gold.daily_product_sales")
+    .saveAsTable("elab_medallion_pipeline.gold.daily_product_sales")
 
 # ----------------------------------------------------------
 # 7. Write Gold Category Sales table
@@ -91,7 +93,7 @@ category_sales_df.write \
     .format("delta") \
     .mode("overwrite") \
     .option("overwriteSchema", "true") \
-    .saveAsTable("ecom_temp.gold.category_sales")
+    .saveAsTable("elab_medallion_pipeline.gold.category_sales")
 
 # ----------------------------------------------------------
 # 8. Validation
@@ -99,16 +101,20 @@ category_sales_df.write \
 print("Pipeline Run ID:", pipeline_run_id)
 
 print("Daily Product Sales Count:")
-spark.sql("SELECT COUNT(*) AS total_rows FROM ecom_temp.gold.daily_product_sales").show()
+spark.sql("SELECT COUNT(*) AS total_rows FROM elab_medallion_pipeline.gold.daily_product_sales").show()
 
 print("Category Sales Count:")
-spark.sql("SELECT COUNT(*) AS total_rows FROM ecom_temp.gold.category_sales").show()
+spark.sql("SELECT COUNT(*) AS total_rows FROM elab_medallion_pipeline.gold.category_sales").show()
 
 print("Daily Product Sales Preview:")
-display(spark.table("ecom_temp.gold.daily_product_sales"))
+display(spark.table("elab_medallion_pipeline.gold.daily_product_sales"))
 
 print("Category Sales Preview:")
-display(spark.table("ecom_temp.gold.category_sales"))
+display(spark.table("elab_medallion_pipeline.gold.category_sales"))
+
+
+
+
 
 
 
