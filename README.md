@@ -9,7 +9,7 @@ The project uses Databricks Notebooks, PySpark, SQL, Delta Lake, Catalog, Jobs, 
 
 Architecture
 
-![image alt](https://github.com/oladebo/databricks_pipeline_econ_medallion_project/blob/909e891d09259dbc3d98915d642b72e2ff6dc31d/Screen%20Shot%202026-08-24%20at%2012.57.46.png)
+![image alt](https://github.com/oladebo/databricks_pipeline_econ_medallion_project/blob/2a6c1c78d95e0c7af3b7aa69ef841590a6742e33/Screen%20Shot%202026-08-24%20at%2013.14.55.png)
 
 
 Source: Raw Orders and Products JSON files.
