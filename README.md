@@ -9,6 +9,8 @@ The project uses Databricks Notebooks, PySpark, SQL, Delta Lake, Catalog, Jobs, 
 
 ### Architecture
 
+![image alt](https://github.com/oladebo/databricks_pipeline_econ_medallion_project/blob/a6371812e6914e6161d12ef85e9efa4a0b54acca/Screen%20Shot%202026-08-24%20at%2013.19.56.png)
+
 ![image alt](https://github.com/oladebo/databricks_pipeline_econ_medallion_project/blob/2a6c1c78d95e0c7af3b7aa69ef841590a6742e33/Screen%20Shot%202026-08-24%20at%2013.14.55.png)
 
 
