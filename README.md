@@ -8,6 +8,7 @@ This project demonstrates the design and implementation of an end-to-end ETL pip
 The project uses Databricks Notebooks, PySpark, SQL, Delta Lake, Catalog, Jobs, and Pipeline Orchestration to automate data ingestion, transformation, and processing across the different layers.
 
 Architecture
+
 ![image alt](https://github.com/oladebo/databricks_pipeline_econ_medallion_project/blob/909e891d09259dbc3d98915d642b72e2ff6dc31d/Screen%20Shot%202026-08-24%20at%2012.57.46.png)
 
 
@@ -26,7 +27,7 @@ Medallion Architecture
 Databricks Catalog
 Databricks Jobs & Pipelines
 JSON
-ETL/ELT
+ETL
 Key Features
 
 The pipeline demonstrates data ingestion, data cleansing, transformation, layer-to-layer processing, pipeline orchestration, and the creation of reliable analytics-ready datasets.
